@@ -1,0 +1,11 @@
+---
+- name: Define apache_packages.
+  set_fact:
+    apache_packages: "apache2,apache2-utils"
+  when: apache_packages is not defined
+
+- name: Update apt cache.
+  apt: update_cache=yes cache_valid_time=3600
+
+- name: Install apache2
+  apt: "name={{ apache_packages }} state=present"
